@@ -1,0 +1,141 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%  UJV template %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%% \input{ujvtemplate.tex} somewhere after documentclass %%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{graphicx}
+\usepackage{ifthen}
+\usepackage{tikz}
+\usefonttheme{professionalfonts}
+\usepackage{times}
+\usepackage{amsmath}
+\usetikzlibrary{arrows,shapes}
+\usetikzlibrary{decorations.pathmorphing}
+
+\definecolor{ujvdarkblue}{rgb}{0,0.33,0.647} 
+\definecolor{ujvlightblue}{rgb}{0,0.607,0.788} 
+
+\mode<presentation>
+
+{
+
+\usetheme{default}
+%\usetheme{boxes}
+}
+
+
+\setbeamertemplate{frametitle}{
+\vspace*{2.5mm}\hspace*{-1mm}\insertframetitle}
+
+\setbeamertemplate{headline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.25ex,dp=1ex,right,rightskip=1em]{section in head/foot}%
+    \usebeamerfont{subsection in head/foot}\hspace*{2ex}\color{ujvlightblue}{\insertshorttitle}
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.25ex,dp=1ex,left,leftskip=1em]{subsection in head/foot}%
+    \usebeamerfont{section in head/foot}\color{ujvdarkblue}{\insertsectionhead}\hspace*{2ex}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+
+\useinnertheme{rounded}
+\usecolortheme{orchid}
+\usefonttheme{default}
+
+%\newcommand{\Ffootline}{%
+%\insertsection % The left end of the footline
+%\hfill
+%\textit{Moo} % The center
+%\hfill
+%\insertframenumber/\inserttotalframenumber} % And the right end
+
+\newcommand{\Ffootline}{%
+\color[rgb]{1,1,1}\bf\tiny\insertframenumber % The left end of the footline
+\hfill
+} % And the right end
+
+
+\setbeamertemplate{footline}{%
+\usebeamerfont{structure}
+\begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex]{title in head/foot}%
+\ifnum\insertframenumber<10\relax%
+\Tiny\vspace*{3.6mm}\hspace*{9.5mm} \Ffootline \hspace{8mm}
+\fi
+\ifnum\insertframenumber>9\relax%
+\Tiny\vspace*{3.6mm}\hspace*{8.9mm} \Ffootline \hspace{8mm}
+\fi
+\end{beamercolorbox}}
+
+\setbeamertemplate{itemize/enumerate body begin}{\setlength{\leftmargini}{11pt}}
+
+\setbeamertemplate{sections/subsections in toc}[square]
+
+\defbeamertemplate{itemize item}{image}{\small\raisebox{0.2ex}{\includegraphics[height=1.ex]{fig_item1}}}
+\defbeamertemplate{itemize subitem}{image}{\scriptsize\raisebox{0.2ex}{\includegraphics[height=1.ex]{fig_item2}}}
+\defbeamertemplate{itemize subsubitem}{image}{\tiny\raisebox{0.2ex}{\includegraphics[height=1.0ex]{fig_item2}}}
+%\defbeamertemplate{enumerate item}{image}{\small\raisebox{0.0ex}{\includegraphics[height=0.5ex]{fig_item1.png}}\hspace*{-1ex}\theenumi}
+
+\setbeamertemplate{itemize item}[image]
+\setbeamertemplate{itemize subitem}[image]
+\setbeamertemplate{itemize subsubitem}[image]
+
+\setbeamertemplate{enumerate items}[square]
+%\newcommand{\ujvitem}[0]{\includegraphics[height=1.6 ex]{fig_item1.png}}
+%\setbeamertemplate{enumerate items}{
+%                             \hspace{0.5ex}\ujvitem
+%\usebeamercolor[fg]{item projected}  \footnotesize   
+%                            \hspace*{-1ex}\raisebox{1.5pt}{\theenumi}     
+%                            }
+
+
+\definecolor{ujvdarkblue}{rgb}{0,0.33,0.647} 
+\definecolor{ujvlightblue}{rgb}{0,0.607,0.788} 
+\setbeamercolor{frametitle}{fg=ujvdarkblue}
+\setbeamercolor{title}{fg=ujvdarkblue}
+\setbeamercolor{structure}{fg=ujvdarkblue}
+\setbeamercolor{block title}{use=structure,fg=white,bg=ujvdarkblue}
+
+\usebackgroundtemplate{
+    \includegraphics[width=\paperwidth,height=\paperheight]{fig_bacground}
+}
+
+
+\mode<all>
+
+
+\pgfdeclareimage[width=\paperwidth]{mybackground}{fig_bacground0}
+
+\defbeamertemplate*{title page}{customized}[1][]{
+  
+  \begin{picture}(0,0)
+    
+    \put(-40,-165){%
+      \pgfuseimage{mybackground}
+    }
+    
+    \put(110,-70){%
+      \begin{minipage}{6.7cm}
+          \color{ujvdarkblue}{
+            \usebeamerfont{title}{\bf\flushright\inserttitle\par}
+            \vspace{0.2cm}
+            \usebeamerfont{author}\hfill\insertauthor\par
+            \vspace{0.2cm}
+            \usebeamerfont{institute}\hfill\insertinstitute\par
+            \vspace{0.2cm}
+            \usebeamerfont{date}\hfill\insertdate\par
+          }
+      \end{minipage}
+ }       
+  \end{picture}
+  
+}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%  UJV template  END %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

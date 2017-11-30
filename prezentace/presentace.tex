@@ -1,0 +1,229 @@
+% $Header: /cvsroot/latex-beamer/latex-beamer/solutions/generic-talks/generic-ornate-15min-45min.en.tex,v 1.5 2007/01/28 20:48:23 tantau Exp $
+
+\documentclass{beamer}
+\usepackage{pdfpages}
+\usepackage{booktabs}
+\input{ujvtemplate.tex}
+
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% Or whatever. Note that the encoding and the font should match. If T1
+% does not look nice, try deleting the line with the fontenc.
+
+\title{SFullcore - Monte Carlo výpočty reaktorů VVER}
+
+\author{Milan Gren}
+
+\date{Řež, prosinec 2017}
+
+\institute[ÚJV Řež]
+{ÚJV Řež}
+
+
+
+\AtBeginSection[]{\begin{frame} \frametitle{Obsah} \tableofcontents[currentsection] \end{frame}} 
+
+
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Obsah}
+  \tableofcontents
+\end{frame}
+
+\section{Popis a možnosti programu SFullcore}
+
+\begin{frame}{SFullcore - základní popis}
+  
+\begin{center}
+SFullcore = \textbf{S}erpent \textbf{fullcore} automated processing
+\end{center}
+
+\begin{block}{}\small
+\begin{itemize}\footnotesize
+\item automatická režie přípravy fullcore výpočtu v programu SERPENT
+%\begin{enumerate}\footnotesize
+%	\item jednoduchá textová definice výpočtu jednoho stavu
+%	\item vytvoření 'nodální' datové struktury
+%	\item aplikace na konkrétní šablonu reaktoru
+%\end{enumerate}
+\item jednoduchá textová definice výpočtu jednoho stavu
+\item nodální, obecný přístup, aplikace na šablony reaktoru
+\end{itemize}
+\end{block}
+\begin{block}{}\small
+Požadavky na program:
+\begin{itemize}\footnotesize
+\item jednoduchá definice vsázky (značení kazet jako v ANDREA)
+\item jednoduchá definice nodalizace 
+\item snadná manipulace s axiálním rozložením reaktoru (mřížky \dots)
+\item jednoduchá definice samotného výpočtu
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{SFullcore - možnosti/využití}
+
+\begin{block}{}
+	\begin{enumerate}\footnotesize
+		\item výpočty stavů bez vyhoření a bez vazby na výkon
+		\begin{itemize}\scriptsize
+			\item izotermické modely
+			\item testy F5-ARO (kritická BC) na začátku kampaně u1c9 a u2c9
+		\end{itemize}
+		\item výpočty stavů bez vyhoření a s vazbou na výkon
+		\begin{itemize}\scriptsize
+			\item jednokanálový teplotní model (TRANSURANUS)
+			\item výpočty s Xe=0, výpočty s Xe=E
+			\item výkonové stavy na začátku u1c9 a u2c9
+		\end{itemize}
+		\item výpočty stavů s vyhořením bez vazby na výkon
+		\begin{itemize}\scriptsize
+			\item vyhoření predikované programem ANDREA
+			\item složení paliva předpočteno programem SCALE nebo HELIOS
+			\item testy F5-ARO pro vyhořelé vsázky
+	 	\end{itemize}
+
+	\end{enumerate}
+\end{block}
+
+\begin{exampleblock}{}
+		\begin{enumerate}\footnotesize
+		\setcounter{enumi}{3}
+		\item výpočty stavů s vyhořením a s vazbou na výkon
+			\begin{itemize}\scriptsize
+				\item kombinace bodů 2 a 3
+				\item výkonové stavy za předpokladu Xe=E
+			\end{itemize}
+	  	\end{enumerate}
+\end{exampleblock}
+
+\end{frame}
+
+
+
+%	\frametitle{SFullcore - nodální přístup}
+
+%\begin{itemize}\small
+%	\item nód reprezentován skutečnou geometrií a materiály
+%	\item nutné pro HFP výpočty, výpočty s vyhořením
+%\end{itemize}
+
+\begin{frame}{Nodální přístup - ilustrace}
+%\begin{block}{}
+%Nutný pro HFP výpočty a výpočty s vyhořením
+%\end{block}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.35]{img/reactor_axial_schema.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Vstupní soubor programu SFullcore}
+	content...
+\end{frame}
+
+
+\section{Porovnaní výpočtů s měřením}
+
+
+\begin{frame}{Testy spouštění -- F5 ARO}
+
+\begin{itemize}\footnotesize
+	\item vyhoření predikované programem ANDREA
+	\item složení paliva v závislosti na vyhoření předpočteno programem SCALE 
+\end{itemize}
+
+\begin{table}[h]\scriptsize
+	\begin{center}
+		\begin{tabular}{cccc|cccc}
+			\toprule
+			& CMS     & SERPENT & Rozdíl & & CMS & SERPENT & Rozdíl \\
+			\midrule
+			\input{tables/f5.tex}
+			\bottomrule
+		\end{tabular}
+		\caption{\footnotesize F5 ARO -- kritická kocentrace kys. borité}
+	\end{center}
+\end{table}
+\end{frame}
+
+\begin{frame}{Testy spouštění -- F4 ITC}
+
+\begin{itemize}\footnotesize
+	\item snížení a zvýšení teploty systému o 1.5 $^\circ$C
+\large	\item ITC =  $\frac{\textrm{k}_{\textrm{zvýšení}}-\textrm{k}_{\textrm{snížení}}}{
+\textrm{3}}$
+
+\footnotesize	\item velice náročný výpočet z hlediska jeho přesnosti
+\item výsledek negativně ovlivněn velkým rozptylem teplot
+\end{itemize}
+
+\begin{table}[h]\scriptsize
+	\begin{center}
+		\begin{tabular}{ccccc}
+			\toprule
+			& CMS     & SERPENT \tiny min & SERPENT \tiny mean & SERPENT \tiny max\\
+			\midrule
+			\input{tables/f4.tex}
+			\bottomrule
+		\end{tabular}
+		\caption{\footnotesize F4 ITC (s ohledem na přesnost výpočtu)}
+	\end{center}
+\end{table}
+
+\end{frame}
+
+\begin{frame}{Výkonový stav -- U2C9/S12}
+
+\begin{itemize}\footnotesize
+	\item výpočet proveden bez vyhoření 
+	\item u2c9/S12 - kompromis mezi rovnováhou xenonu a 'čerstvostí' vsázky
+	\item reálné vyhoření cca 3.5 Teff, vliv odpovídá cca 0.2 g/kg BC
+\end{itemize}
+	
+\begin{table}[h]\scriptsize
+	\begin{center}
+		\begin{tabular}{cccc}
+			\toprule
+			& CMS     & SERPENT (\tiny včetně uvážení vlivu 3.5 Teff) \\
+			\midrule
+			\textbf{u2c9/s12  } & 4.331    & 4.332    \\
+			\bottomrule
+		\end{tabular}
+		\caption{\footnotesize Kritcká BC stavu S12}
+	\end{center}
+\end{table}
+\end{frame}
+
+
+
+
+
+
+\begin{frame}{Výkonový stav -- U2C9/S12 (mapa)}
+\begin{figure}[!h]
+	\centering
+	%       \includegraphics[scale=0.15]{../img/fha__4_full_S4.pdf}
+	\includegraphics[scale=0.08]{img/fha_sfullcore_vs_cms.pdf}
+	\caption{Srovnání SERPENT - CMS}
+	%       \caption{Srovnání SERPENT - CMS (nahoře), srovnání ANDREA - CMS (dole)}
+\end{figure}
+\end{frame}
+
+
+
+\section{Závěrem}
+
+\begin{frame}{Závěrem}
+
+
+\end{frame}
+
+\end{document}

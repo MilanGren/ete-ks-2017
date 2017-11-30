@@ -1,0 +1,5 @@
+
+rm -rf tables
+cp -r /home_pleiades/gre/reports/serpent_vs_cms/report/tables ./
+
+cp /home_pleiades/gre/reports/serpent_vs_cms/report/img/fha_sfullcore_vs_cms.pdf img/
