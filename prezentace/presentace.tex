@@ -11,6 +11,8 @@
 % Or whatever. Note that the encoding and the font should match. If T1
 % does not look nice, try deleting the line with the fontenc.
 
+\setbeamercolor{block title}{bg=blue!35,fg=black}
+
 \title{SFullcore - Monte Carlo výpočty reaktorů VVER}
 
 \author{Milan Gren}
@@ -75,13 +77,14 @@ Požadavky na program:
 		\item výpočty stavů bez vyhoření a bez vazby na výkon
 		\begin{itemize}\scriptsize
 			\item izotermické modely
-			\item testy F5-ARO (kritická BC) na začátku kampaně u1c9 a u2c9
+			\item testy F5-ARO (kritická BC) na začátku kampaně
+U1C9 a U2C9
 		\end{itemize}
 		\item výpočty stavů bez vyhoření a s vazbou na výkon
 		\begin{itemize}\scriptsize
 			\item jednokanálový teplotní model (TRANSURANUS)
 			\item výpočty s Xe=0, výpočty s Xe=E
-			\item výkonové stavy na začátku u1c9 a u2c9
+			\item výkonové stavy na začátku U1C9 a U2C9
 		\end{itemize}
 		\item výpočty stavů s vyhořením bez vazby na výkon
 		\begin{itemize}\scriptsize
@@ -129,7 +132,7 @@ Požadavky na program:
 \begin{block}{}
 \begin{itemize}\scriptsize
 	\item rychlost výpočtu rozložení výkonu na HFP je závislá na počtu iterací rozložení výkonu/teplot 
-    \item je tedy vhodné mít co nejlepší odhad rozložení teplot v nódech před výpočtem
+    \item je vhodné mít co nejlepší odhad rozložení teplot v nódech před výpočtem
 \end{itemize}
 
 \end{block}
@@ -140,23 +143,58 @@ Požadavky na program:
 \end{figure}
 \end{frame}
 
-\begin{frame}{Vstupní soubor programu SFullcore}
-	content...
-\end{frame}
-
-\begin{frame}{Výstupy programu}
+\begin{frame}{Modelování vyhoření}
+	
+\begin{block}{}
 \begin{itemize}\footnotesize
-	\item koeficient násobení
-	\item nodální rozložení neutronových toků (v definové grupové struktuře)
-	\item nodální rozložení definovaných reakčních rychlostí
-\end{itemize}	
+	\item generický model sestavený na základě vybraných typů kazet 
+	\item pouze pro výpočty 'dostatečně' dlouho po odstavení
+	\item nelze reprezentovat gradient vyhoření
+\end{itemize}
+\end{block}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.6]{img/nod.png}
+\end{figure}
+Schéma modelu:\\
+    \begin{enumerate}\footnotesize
+    	\item na středním výkonu (39 MW/tU) pro několik typů kazet spočteno vyhoření do 75000 MWd/tu a následující odstavení - např. 35 dní
+    	\item je vytvořena interpolační tabulka pro koncentrace isotopů v závislosti na vyhoření a počátečním obohacení prutu
+    \end{enumerate}
+  
+
+
 	
 \end{frame}
+
+\begin{frame}{Vstupní soubor programu SFullcore (1)}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.3]{img/input-example1.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Vstupní soubor programu SFullcore (2)}
+	\centering
+	\includegraphics[scale=0.25]{img/input-example2.png}
+\end{frame}
+
+%\begin{frame}{Výstupy programu}
+%\begin{itemize}\footnotesize
+%	\item koeficient násobení
+%	\item nodální rozložení neutronových toků (v definové grupové struktuře)
+%	\item nodální rozložení definovaných reakčních rychlostí
+%\end{itemize}	
+%\end{frame}
 
 \section{Porovnaní výpočtů s měřením}
 
 
 \begin{frame}{Testy spouštění -- F5 ARO}
+	
+\begin{block}{}\small
+	Měření kritické koncentrace kyseliny borité na začátku kampaně
+\end{block}
 
 \begin{itemize}\footnotesize
 	\item vyhoření predikované programem ANDREA
@@ -179,13 +217,17 @@ Požadavky na program:
 
 \begin{frame}{Testy spouštění -- F4 ITC}
 
+\begin{block}{}\small
+	Měření izotermického koeficientu reaktivity 
+\end{block}
+
 \begin{itemize}\footnotesize
 	\item snížení a zvýšení teploty systému o 1.5 $^\circ$C
 \large	\item ITC =  $\frac{\textrm{k}_{\textrm{zvýšení}}-\textrm{k}_{\textrm{snížení}}}{
 \textrm{3}}$
 
-\footnotesize	\item velice náročný výpočet z hlediska jeho přesnosti
-\item výsledek negativně ovlivněn velkým rozptylem teplot
+\footnotesize	\item náročný výpočet z hlediska jeho neurčitosti
+\item výsledek negativně ovlivněn velkým rozdílem teplot (3 $^\circ$C)
 \end{itemize}
 
 \begin{table}[h]\scriptsize
@@ -203,24 +245,40 @@ Požadavky na program:
 
 \end{frame}
 
-\begin{frame}{Výkonový stav -- U2C9/S12}
+\begin{frame}{Výkonový stav -- E2 (U2C9)}
+
+\begin{block}{}\small
+	Test rozložení výkonu kazet (na 100 \% výkonu rektoru)
+\end{block}
+
+\begin{table}[h]\scriptsize
+	\begin{center}
+		\begin{tabular}{ll}
+Výpočet & Reálný stav \\			
+			\toprule
+bez vyhoření & vyhoření cca 3.5 Teff \\
+proveden s Xe=E & xenon 'dojíždí' z testu na 80 \% výkonu \\
+			\bottomrule
+		\end{tabular}
+	\end{center}
+\end{table}
 
 \begin{itemize}\footnotesize
-	\item výpočet proveden bez vyhoření 
-	\item u2c9/S12 - kompromis mezi rovnováhou xenonu a 'čerstvostí' vsázky
-	\item reálné vyhoření cca 3.5 Teff, vliv odpovídá cca 0.2 g/kg BC
+	\item 'lze' provést korekce na vyhoření a chování xenonu
+	\item korekce na BC: cca 0.2 g/kg BC
+
 \end{itemize}
 	
 \begin{table}[h]\scriptsize
 	\begin{center}
 		\begin{tabular}{cccc}
 			\toprule
-			& CMS     & SERPENT (\tiny včetně uvážení vlivu 3.5 Teff) \\
+			& CMS    & SERPENT (\tiny Teff = 0) & SERPENT (\tiny Teff = 3.5) \\
 			\midrule
-			\textbf{u2c9/s12  } & 4.331    & 4.332    \\
+			\input{tables/e2.tex}
 			\bottomrule
 		\end{tabular}
-		\caption{\footnotesize Kritcká BC stavu S12}
+		\caption{\footnotesize Kritcká BC měření E2}
 	\end{center}
 \end{table}
 \end{frame}
@@ -228,24 +286,22 @@ Požadavky na program:
 
 
 
-
-
 \begin{frame}{Výkonový stav -- U2C9/S12 (mapa)}
-\begin{figure}[!h]
-	\centering
-	%       \includegraphics[scale=0.15]{../img/fha__4_full_S4.pdf}
-	\includegraphics[scale=0.08]{img/fha_full_vs_cms.pdf}
-	\caption{Srovnání SERPENT - CMS}
-	%       \caption{Srovnání SERPENT - CMS (nahoře), srovnání ANDREA - CMS (dole)}
-\end{figure}
+	\begin{figure}[!h]
+		\centering
+		%       \includegraphics[scale=0.15]{../img/fha__4_full_S4.pdf}
+		\includegraphics[scale=0.13]{img/fha_sixth_vs_cms.pdf}
+		\caption{\footnotesize Srovnání SERPENT - CMS}
+		%       \caption{Srovnání SERPENT - CMS (nahoře), srovnání ANDREA - CMS (dole)}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{Výkonový stav -- U2C9/S12 (mapa)}
 	\begin{figure}[!h]
 		\centering
 		%       \includegraphics[scale=0.15]{../img/fha__4_full_S4.pdf}
-		\includegraphics[scale=0.13]{img/fha_sixth_vs_cms.pdf}
-		\caption{Srovnání SERPENT - CMS}
+		\includegraphics[scale=0.13]{img/fha_csixth_vs_cms.pdf}
+		\caption{\footnotesize Srovnání SERPENT - CMS (korekce na vyhoření)}
 		%       \caption{Srovnání SERPENT - CMS (nahoře), srovnání ANDREA - CMS (dole)}
 	\end{figure}
 \end{frame}
@@ -254,8 +310,11 @@ Požadavky na program:
 \section{Závěrem}
 
 \begin{frame}{Závěrem}
-
-
+	\begin{itemize}
+		\item Zlepšení modelu vyhoření kazet 
+		\item Pokus o výpočet na HFP s vyhořením reaktoru
+	\end{itemize}
 \end{frame}
+
 
 \end{document}
